@@ -2,40 +2,50 @@ import React, { useState } from "react";
 import lemonpayLogo from './LemonPay Logo.png'; 
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const [remember, setRemember] = useState(false);
-  const [message, setMessage] = useState("");   
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage("");
-    try {
-      const response = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          username: email,
-          password: password
-        })
-      });
-      const data = await response.json();
-      if (response.ok) {
-        setMessage("Login successful!");
-        localStorage.setItem('token', data.token);
-        console.log("Token:", data.token);
-      } else {
-        setMessage(data.message || "Login failed");
-      }
-    } catch (error) {
-      setMessage("Network error");
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  
+  console.log("Email:", email);
+  console.log("Password:", password);
+  console.log("Confirm Password:", confirm);
+  console.log("Remember me:", remember);
+
+  if (password !== confirm) {
+    setMessage("Passwords do not match!");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:3000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username: email,
+        password: password
+      })
+    });
+    const data = await response.json();
+    if (response.ok) {
+      setMessage("Signup successful!");
+      localStorage.setItem('signupResponse', JSON.stringify(data));
+      console.log("Signup Response:", data);
+    } else {
+      setMessage(data.message || "Signup failed");
     }
-  };
-
-  return (
+  } catch (error) {
+    setMessage("Network error");
+  }
+};
+ return (
     <div style={{
       minHeight: "100vh",
       display: "flex",
@@ -79,10 +89,11 @@ const Login = () => {
           flexDirection: "column",
           justifyContent: "center"
         }}>
-          <h2 style={{ marginBottom: 10 }}>Welcome Login System</h2>
+  <h2 style={{ marginBottom: 10 }}>Welcome Login System</h2>
           <p style={{ marginBottom: 30, color: "#e0e7ff" }}>
             Your gateway to seamless transactions and easy payments.
           </p>
+         
           <form onSubmit={handleSubmit}>
             <div style={{ marginBottom: 20 }}>
               <label>Email</label>
@@ -118,7 +129,24 @@ const Login = () => {
                 }}
               />
             </div>
-            <div style={{
+            <div style={{ marginBottom: 20 }}>
+              <label>Confirm Password</label>
+              <input
+                type="password"
+                placeholder="Min 8 characters"
+                value={confirm}
+                onChange={e => setConfirm(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "10px",
+                  borderRadius: "6px",
+                  border: "none",
+                  marginTop: 5,
+                  background: "#ede9fe"
+                }}
+            />
+            </div>
+           <div style={{
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
@@ -133,13 +161,13 @@ const Login = () => {
                 />
                 Remember me
               </label>
-             <Link to="/signup" style={{ color: "#fbbf24", textDecoration: "none" }}>
-            Sign Up
-          </Link>
+                <Link to="/login" style={{ color: "#fbbf24", textDecoration: "none" }}>
+                          Sign In
+                        </Link>
             </div>
             <button
               type="submit"
-              style={{
+             style={{
                 width: "100%",
                 padding: "12px",
                 borderRadius: "6px",
@@ -149,10 +177,14 @@ const Login = () => {
                 fontWeight: 700,
                 fontSize: 18,
                 cursor: "pointer"
-              }}
-            >
-              Sign in
+              }} >
+              Sign Up
             </button>
+            {message && (
+              <div className="mt-4 text-center bg-yellow-200 text-yellow-800 rounded py-2">
+                {message}
+              </div>
+            )}
           </form>
         </div>
       </div>
@@ -160,4 +192,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
