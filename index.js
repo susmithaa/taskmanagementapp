@@ -34,6 +34,20 @@ const userSchema = new mongoose.Schema({
 
 const userModel = mongoose.model('User', userSchema);
 
+
+function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (!token) return res.status(401).json({ message: 'Access denied. No token provided.' });
+
+    jwt.verify(token, 'your_jwt_secret', (err, user) => {
+        if (err) return res.status(403).json({ message: 'Invalid token.' });
+        req.user = user;
+        next();
+    });
+}
+
+
 const signup = async (req, res) => {
     const { username, password } = req.body;
     try {
@@ -71,7 +85,7 @@ const login = async (req, res) => {
 app.post('/login', login);
 app.post('/signup', signup);
 
-app.post('/task', async (req,res) => {
+app.post('/task', authenticateToken, async (req,res) => {
     const {taskName, description, createdAt, dueDate} = req.body;
     try {
         const newTask =  new taskModel({taskName, description, createdAt, dueDate});
@@ -84,7 +98,7 @@ app.post('/task', async (req,res) => {
 
 })
 
-app.get('/task', async (req,res) => {
+app.get('/task',authenticateToken, async (req,res) => {
     try {
         const tasks = await taskModel.find();
         res.json(tasks);
@@ -94,7 +108,7 @@ app.get('/task', async (req,res) => {
     }
 })
 
-app.put('/task/:id', async (req,res) => {
+app.put('/task/:id', authenticateToken, async (req,res) => {
     const {id} = req.params;
     const {taskName, description, dueDate} = req.body;
     try {
@@ -110,7 +124,7 @@ app.put('/task/:id', async (req,res) => {
     }   
 })
 
-app.delete('/task/:id', async (req,res) => {
+app.delete('/task/:id', authenticateToken, async (req,res) => {
     const {id} = req.params;
     try {
         const deletedTask = await taskModel.findByIdAndDelete(id);
