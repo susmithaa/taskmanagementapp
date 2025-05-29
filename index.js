@@ -47,6 +47,35 @@ app.get('/task', async (req,res) => {
     }
 })
 
+app.put('/task/:id', async (req,res) => {
+    const {id} = req.params;
+    const {taskName, description, dueDate} = req.body;
+    try {
+        const updatedTask = await taskModel.findByIdAndUpdate(
+            id, {taskName, description, dueDate}, {new:true}     )
+        if (!updatedTask) {
+            return res.status(404).json({message: 'Task not found'});
+        }   
+        res.json(updatedTask);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: 'Error updating task'});
+    }   
+})
+
+app.delete('/task/:id', async (req,res) => {
+    const {id} = req.params;
+    try {
+        const deletedTask = await taskModel.findByIdAndDelete(id);
+        if (!deletedTask) {
+            return res.status(404).json({message: 'Task not found'});
+        }
+        res.json({message: 'Task deleted successfully'});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message: 'Error deleting task'});
+    }
+})
 
 const port = 3000;
 app.listen(port, () => {
