@@ -1,10 +1,12 @@
 
 const express = require ('express');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 
 const app = express();
 app.use(express.json())
-
 
 
 mongoose.connect('mongodb://localhost:27017/taskmanagement-app')
@@ -23,6 +25,51 @@ createdAt: { type: Date, default: Date.now }
 })
 
 const taskModel = mongoose.model('task', taskSchema);
+
+const userSchema = new mongoose.Schema({
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now }
+});
+
+const userModel = mongoose.model('User', userSchema);
+
+const signup = async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new userModel({ email: username, password: hashedPassword });
+        await newUser.save();
+        res.status(201).json({ message: 'User created successfully' });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Error creating user' });
+    }
+}
+
+const login = async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const user = await userModel.findOne(
+            { email: username }
+        );
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+        const token = jwt.sign({ id: user._id }, 'your_jwt_secret', { expiresIn: '1h' });
+        res.json({ token });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Error logging in' });
+    }
+};
+
+app.post('/login', login);
+app.post('/signup', signup);
 
 app.post('/task', async (req,res) => {
     const {taskName, description, createdAt, dueDate} = req.body;
