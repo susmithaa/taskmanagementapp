@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import lemonpayLogo from './LemonPay Logo.png'; 
+import lemonpayLogo from './LemonPay Logo.png';
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
-  const [message, setMessage] = useState("");   
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -28,9 +28,7 @@ const Login = () => {
         setMessage("Login successful!");
         localStorage.setItem('token', data.token);
         console.log("Token:", data.token);
-        setTimeout(() => {
-          navigate("/tasks");
-        }, 10000);
+        navigate("/tasks");
       } else {
         setMessage(data.message || "Login failed");
       }
@@ -45,50 +43,88 @@ const Login = () => {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      background: "linear-gradient(120deg, #e0e7ff 0%, #a5b4fc 100%)"
+      background: '#fcfeff',
+      background: 'linear-gradient(95deg, rgba(252, 254, 255, 1) 0%, rgba(30, 59, 163, 1) 50%)',
+      position: "relative",
+      overflow: "hidden"
     }}>
       <div style={{
-        background: "white",
-        borderRadius: "20px",
-        boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+        position: "absolute",
+        left: "-100px",
+        bottom: "-50px",
+        width: "240px",
+        height: "240px",
+        background: "radial-gradient(circle at 60% 40%, #fff 0%, #FDBC31 80%, #FDBC31 100%)",
+        opacity: 0.35,
+        borderRadius: "50%",
+        zIndex: 0
+      }} />
+      {/* Right ellipse */}
+      <div style={{
+        position: "absolute",
+        right: "-50px",
+        top: "-100px",
+        width: "260px",
+        height: "260px",
+        background: "radial-gradient(circle at 40% 60%, #fff 0%, #FDBC31 80%, #FDBC31 100%)",
+        opacity: 0.35,
+        borderRadius: "50%",
+        zIndex: 0
+      }} />
+      {/* center bottom ellipse */}
+      <div style={{
+        position: "absolute",
+        center: "-50px",
+        bottom: "-100px",
+        width: "240px",
+        height: "240px",
+        background: "radial-gradient(circle at 50% 50%, #fff 0%, #FDBC31 80%, #FDBC31 100%)",
+        opacity: 0.35,
+        borderRadius: "50%",
+        zIndex: 0
+      }} />
+      <div
+        className="header-logo"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          padding: "24px",
+          zIndex: 1
+        }}
+      >
+        <img src={lemonpayLogo} alt="lemonpay" style={{ height: 102.51, width: 329, top:50, left:27 }} />
+      </div>
+      <div className="form-section" style={{
+        width: "90%",
         display: "flex",
-        width: "900px",
-        minHeight: "500px",
-        overflow: "hidden"
+        justifyContent: "space-between",
+        alignContent: "space-between",
+        zIndex: 1
       }}>
-        {/* Left Side */}
-        <div style={{
-          flex: 1,
-          background: "linear-gradient(120deg, #f9fafb 0%, #c7d2fe 100%)",
-          padding: "40px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center"
-        }}>
-          <img src={lemonpayLogo} alt="lemonpay" style={{height: "200px"}} />
-             <h2 style={{ color: "#6d28d9", fontWeight: 700, marginBottom: 10 }}>
+        <div className="description"
+          style={{
+            marginTop: 200,
+          }}
+        >
+          <div style={{ color: "#ffffff", fontWeight: 600, fontFamily: "Nunito", fontSize: 48, marginBottom: 10 }}>
             Join 1000<sup>+</sup> Businesses
-          </h2>
-          <h3 style={{ color: "#facc15", fontWeight: 500, marginBottom: 10 }}>
-            Powering Growth with Lemonpay!
-          </h3>
+          </div>
+          <div style={{ color: "#F9D535", fontWeight: 600, fontFamily: "Nunito", fontSize: 48, marginBottom: 10 }}>
+
+            Powering Growth with
+          </div>
+          <div style={{ color: "#F9D535", fontWeight: 600, fontFamily: "Nunito", fontSize: 48, marginBottom: 10 }}>
+            Lemonpay!
+          </div>
         </div>
-        {/* Right Side */}
-        <div style={{
-          flex: 1.2,
-          background: "linear-gradient(120deg, #6366f1 0%, #818cf8 100%)",
-          color: "white",
-          padding: "60px 40px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center"
-        }}>
-          <h2 style={{ marginBottom: 10 }}>Welcome Login System</h2>
-          <p style={{ marginBottom: 30, color: "#e0e7ff" }}>
+        <div className="form-container" style={{fontFamily: "Nunito"}}>
+          <h2 style={{ marginBottom: 10, color: "#FFFFFF", fontSize: 40 }}>Welcome Login System</h2>
+          <p style={{ marginBottom: 30, color: "#e0e7ff", fontSize: 25 }}>
             Your gateway to seamless transactions and easy payments.
           </p>
           <form onSubmit={handleSubmit}>
-            <div style={{ marginBottom: 20 }}>
+            <div style={{ marginBottom: 20, color: "#FFFFFF", fontSize: 18 }}>
               <label>Email</label>
               <input
                 type="email"
@@ -105,7 +141,7 @@ const Login = () => {
                 }}
               />
             </div>
-            <div style={{ marginBottom: 20 }}>
+            <div style={{ marginBottom: 20, color: "#FFFFFF", fontSize: 18 }}>
               <label>Password</label>
               <input
                 type="password"
@@ -128,48 +164,48 @@ const Login = () => {
               justifyContent: "space-between",
               marginBottom: 20
             }}>
-              <label>
+              <label style={{ color: "#FFFFFF", fontSize: 17 }}>
                 <input
                   type="checkbox"
                   checked={remember}
                   onChange={e => setRemember(e.target.checked)}
-                  style={{ marginRight: 5 }}
+                  style={{ marginRight: 5, color: "#FFFFFF", fontSize: 17 }}
                 />
                 Remember me
               </label>
-             <Link to="/signup" style={{ color: "#fbbf24", textDecoration: "none" }}>
-            Sign Up
-          </Link>
+              <Link to="/signup" style={{ color: "#FFFFFF", textDecoration: "none", fontSize: 17 }}>
+                Sign Up
+              </Link>
             </div>
             <button
               type="submit"
               style={{
-                width: "100%",
+                width: "103%",
                 padding: "12px",
                 borderRadius: "6px",
                 border: "none",
-                background: "#fbbf24",
-                color: "#3730a3",
+                background: "#ffffff",
+                color: "#000000",
                 fontWeight: 700,
-                fontSize: 18,
+                fontSize: 16,
                 cursor: "pointer"
               }}
             >
-              Sign in
+              Sign In
             </button>
           </form>
           {message && (
-              <div style={{
-                marginTop: 20,
-                background: "#fde68a",
-                color: "#92400e",
-                borderRadius: 6,
-                padding: 10,
-                textAlign: "center"
-              }}>
-                {message}
-              </div>
-            )}
+            <div style={{
+              marginTop: 20,
+              background: "#fde68a",
+              color: "#92400e",
+              borderRadius: 6,
+              padding: 10,
+              textAlign: "center"
+            }}>
+              {message}
+            </div>
+          )}
         </div>
       </div>
     </div>
