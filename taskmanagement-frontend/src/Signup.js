@@ -161,7 +161,7 @@ const handleSubmit = async (e) => {
                 />
                 Remember me
               </label>
-                <Link to="/login" style={{ color: "#fbbf24", textDecoration: "none" }}>
+                <Link to="/" style={{ color: "#fbbf24", textDecoration: "none" }}>
                           Sign In
                         </Link>
             </div>

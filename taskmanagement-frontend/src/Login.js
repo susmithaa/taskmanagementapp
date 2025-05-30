@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import lemonpayLogo from './LemonPay Logo.png'; 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
   const [message, setMessage] = useState("");   
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +28,9 @@ const Login = () => {
         setMessage("Login successful!");
         localStorage.setItem('token', data.token);
         console.log("Token:", data.token);
+        setTimeout(() => {
+          navigate("/tasks");
+        }, 10000);
       } else {
         setMessage(data.message || "Login failed");
       }
@@ -154,6 +158,18 @@ const Login = () => {
               Sign in
             </button>
           </form>
+          {message && (
+              <div style={{
+                marginTop: 20,
+                background: "#fde68a",
+                color: "#92400e",
+                borderRadius: 6,
+                padding: 10,
+                textAlign: "center"
+              }}>
+                {message}
+              </div>
+            )}
         </div>
       </div>
     </div>
