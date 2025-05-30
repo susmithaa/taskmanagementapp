@@ -1,16 +1,44 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const AddTask = ({ onSave, onCancel }) => {
   const [taskName, setTaskName] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    if (onSave) {
-      onSave({ taskName, description, date });
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("http://localhost:3000/task", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + localStorage.getItem("token")
+      },
+      body: JSON.stringify({
+        taskName,
+        description,
+        dueDate: date
+      })
+    });
+    const data = await response.json();
+    if (response.ok) {
+      setMessage("Task added successfully!");
+      if (onSave) onSave(data);
+    } else {
+      setMessage(data.message || "Failed to add task");
     }
+  } catch (error) {
+    setMessage("Network error");
+  }
+};
+
+const handleCancel = () => {
+    navigate("/tasks");
   };
 
   return (
@@ -102,7 +130,7 @@ const AddTask = ({ onSave, onCancel }) => {
         </button>
         <button
           type="button"
-          onClick={onCancel}
+          onClick={handleCancel}
           style={{
             background: "none",
             border: "none",
@@ -113,6 +141,16 @@ const AddTask = ({ onSave, onCancel }) => {
         >
           Cancel
         </button>
+        {message && (
+          <div style={{
+            marginTop: 20,
+            color: "#2239a7",
+            fontWeight: 500,
+            textAlign: "center"
+          }}>
+            {message}
+          </div>
+        )}
       </form>
     </div>
   );
