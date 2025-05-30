@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import lemonpayLogo from './LemonPay Logo.png';
 import { Link, useNavigate } from "react-router-dom";
+import "./login.css"
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -93,7 +94,7 @@ const Login = () => {
           zIndex: 1
         }}
       >
-        <img src={lemonpayLogo} alt="lemonpay" style={{ height: 102.51, width: 329, top:50, left:27 }} />
+        <img src={lemonpayLogo} alt="lemonpay" style={{ height: 102.51, width: 329, top: 50, left: 27 }} />
       </div>
       <div className="form-section" style={{
         width: "90%",
@@ -107,20 +108,20 @@ const Login = () => {
             marginTop: 200,
           }}
         >
-          <div style={{ color: "#ffffff", fontWeight: 600, fontFamily: "Nunito", fontSize: 48, marginBottom: 10 }}>
+          <div className="f-description" style={{ color: "#ffffff", fontWeight: 600, fontFamily: "Nunito", fontSize: 48, marginBottom: 10 }}>
             Join 1000<sup>+</sup> Businesses
           </div>
-          <div style={{ color: "#F9D535", fontWeight: 600, fontFamily: "Nunito", fontSize: 48, marginBottom: 10 }}>
+          <div className="f-description" style={{ color: "#F9D535", fontWeight: 600, fontFamily: "Nunito", fontSize: 48, marginBottom: 10 }}>
 
             Powering Growth with
           </div>
-          <div style={{ color: "#F9D535", fontWeight: 600, fontFamily: "Nunito", fontSize: 48, marginBottom: 10 }}>
+          <div className="f-description" style={{ color: "#F9D535", fontWeight: 600, fontFamily: "Nunito", fontSize: 48, marginBottom: 10 }}>
             Lemonpay!
           </div>
         </div>
-        <div className="form-container" style={{fontFamily: "Nunito"}}>
-          <h2 style={{ marginBottom: 10, color: "#FFFFFF", fontSize: 40 }}>Welcome Login System</h2>
-          <p style={{ marginBottom: 30, color: "#e0e7ff", fontSize: 25 }}>
+        <div className="form-container" style={{ fontFamily: "Nunito" }}>
+          <h2 className="f-description" style={{ marginBottom: 10, color: "#FFFFFF", fontSize: 40 }}>Welcome Login System</h2>
+          <p className="f-description" style={{ marginBottom: 30, color: "#e0e7ff", fontSize: 25 }}>
             Your gateway to seamless transactions and easy payments.
           </p>
           <form onSubmit={handleSubmit}>

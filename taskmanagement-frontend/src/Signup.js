@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import lemonpayLogo from './LemonPay Logo.png';
 import { Link } from "react-router-dom";
+import "./login.css"
+
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -57,78 +59,78 @@ const Signup = () => {
       overflow: "hidden"
     }}>
       <div style={{
-              position: "absolute",
-              left: "-100px",
-              bottom: "-50px",
-              width: "240px",
-              height: "240px",
-              background: "radial-gradient(circle at 60% 40%, #fff 0%, #FDBC31 80%, #FDBC31 100%)",
-              opacity: 0.35,
-              borderRadius: "50%",
-              zIndex: 0
-            }} />
-            {/* Right ellipse */}
-            <div style={{
-              position: "absolute",
-              right: "-50px",
-              top: "-100px",
-              width: "260px",
-              height: "260px",
-              background: "radial-gradient(circle at 40% 60%, #fff 0%, #FDBC31 80%, #FDBC31 100%)",
-              opacity: 0.35,
-              borderRadius: "50%",
-              zIndex: 0
-            }} />
-            {/* center bottom ellipse */}
-            <div style={{
-              position: "absolute",
-              center: "-50px",
-              bottom: "-100px",
-              width: "240px",
-              height: "240px",
-              background: "radial-gradient(circle at 50% 50%, #fff 0%, #FDBC31 80%, #FDBC31 100%)",
-              opacity: 0.35,
-              borderRadius: "50%",
-              zIndex: 0
-            }} />
-            <div
-              className="header-logo"
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                padding: "24px",
-                zIndex: 1
-              }}
-            >
-              <img src={lemonpayLogo} alt="lemonpay" style={{ height: 102.51, width: 329, top:50, left:27 }} />
-            </div>
-            <div className="form-section" style={{
-              width: "90%",
-              display: "flex",
-              justifyContent: "space-between",
-              alignContent: "space-between",
-              zIndex: 1
-            }}>
-              <div className="description"
-                style={{
-                  marginTop: 200,
-                }}
-              >
-                <div style={{ color: "#ffffff", fontWeight: 600, fontFamily: "Nunito", fontSize: 48, marginBottom: 10 }}>
-                  Join 1000<sup>+</sup> Businesses
-                </div>
-                <div style={{ color: "#F9D535", fontWeight: 600, fontFamily: "Nunito", fontSize: 48, marginBottom: 10 }}>
-      
-                  Powering Growth with
-                </div>
-                <div style={{ color: "#F9D535", fontWeight: 600, fontFamily: "Nunito", fontSize: 48, marginBottom: 10 }}>
-                  Lemonpay!
-                </div>
-              </div>
-          <div className="form-container" style={{fontFamily: "Nunito"}}>
-          <h2 style={{ marginBottom: 10, color: "#FFFFFF", fontSize: 40 }}>Welcome Sign Up System</h2>
-          <p style={{ marginBottom: 30, color: "#FFFFFF", fontSize: 25 }}>
+        position: "absolute",
+        left: "-100px",
+        bottom: "-50px",
+        width: "240px",
+        height: "240px",
+        background: "radial-gradient(circle at 60% 40%, #fff 0%, #FDBC31 80%, #FDBC31 100%)",
+        opacity: 0.35,
+        borderRadius: "50%",
+        zIndex: 0
+      }} />
+      {/* Right ellipse */}
+      <div style={{
+        position: "absolute",
+        right: "-50px",
+        top: "-100px",
+        width: "260px",
+        height: "260px",
+        background: "radial-gradient(circle at 40% 60%, #fff 0%, #FDBC31 80%, #FDBC31 100%)",
+        opacity: 0.35,
+        borderRadius: "50%",
+        zIndex: 0
+      }} />
+      {/* center bottom ellipse */}
+      <div style={{
+        position: "absolute",
+        center: "-50px",
+        bottom: "-100px",
+        width: "240px",
+        height: "240px",
+        background: "radial-gradient(circle at 50% 50%, #fff 0%, #FDBC31 80%, #FDBC31 100%)",
+        opacity: 0.35,
+        borderRadius: "50%",
+        zIndex: 0
+      }} />
+      <div
+        className="header-logo"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          padding: "24px",
+          zIndex: 1
+        }}
+      >
+        <img src={lemonpayLogo} alt="lemonpay" style={{ height: 102.51, width: 329, top: 50, left: 27 }} />
+      </div>
+      <div className="form-section" style={{
+        width: "90%",
+        display: "flex",
+        justifyContent: "space-between",
+        alignContent: "space-between",
+        zIndex: 1
+      }}>
+        <div className="description"
+          style={{
+            marginTop: 200,
+          }}
+        >
+          <div className="f-description" style={{ color: "#ffffff", fontWeight: 600, fontFamily: "Nunito", fontSize: 48, marginBottom: 10 }}>
+            Join 1000<sup>+</sup> Businesses
+          </div>
+          <div className="f-description" style={{ color: "#F9D535", fontWeight: 600, fontFamily: "Nunito", fontSize: 48, marginBottom: 10 }}>
+
+            Powering Growth with
+          </div>
+          <div className="f-description" style={{ color: "#F9D535", fontWeight: 600, fontFamily: "Nunito", fontSize: 48, marginBottom: 10 }}>
+            Lemonpay!
+          </div>
+        </div>
+        <div className="form-container" style={{ fontFamily: "Nunito" }}>
+          <h2 className="f-description" style={{ marginBottom: 10, color: "#FFFFFF", fontSize: 40 }}>Welcome Sign Up System</h2>
+          <p className="f-description" style={{ marginBottom: 30, color: "#FFFFFF", fontSize: 25 }}>
             Your gateway to seamless transactions and easy payments.
           </p>
 

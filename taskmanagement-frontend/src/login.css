@@ -1,0 +1,28 @@
+.form-section {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    z-index: 1;
+    margin-top: 200px;
+}
+
+@media (max-width: 900px) {
+    .form-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .description {
+        font-size: medium;
+    }
+
+    .f-description {
+        font-size: 20px !important;
+        
+    }
+
+    .description {
+        display: none !important
+    }
+}
