@@ -4,7 +4,7 @@ A full-stack task management application with user authentication, task creation
 
 ---
 
-## 🔑 Features
+## 🔑 Features  
 
 - User Registration & Login (JWT-based)
 - Create, Read, Update, Delete (CRUD) tasks
